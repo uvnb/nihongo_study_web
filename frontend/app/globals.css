@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --paper: #f6efe4;
+  --paper-deep: #ead9bf;
+  --ink: #181410;
+  --torii: #b33a2f;
+  --gold: #c9a54c;
+  --moss: #657b57;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink antialiased;
+  font-feature-settings: "liga" 1, "kern" 1, "palt" 1;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(179, 58, 47, 0.1), transparent 0 18rem),
+    radial-gradient(circle at 86% 22%, rgba(201, 165, 76, 0.12), transparent 0 22rem),
+    radial-gradient(circle at 22% 76%, rgba(101, 123, 87, 0.08), transparent 0 20rem),
+    linear-gradient(180deg, #fbf7f0 0%, #f3e8d7 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image:
+    linear-gradient(rgba(116, 94, 70, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(116, 94, 70, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at center, black 28%, transparent 82%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.75), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.4), transparent 30%);
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+::selection {
+  background: rgba(179, 58, 47, 0.2);
+}
+
+.pattern-seigaiha {
+  background-image:
+    radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.16) 0 42%, transparent 43%),
+    radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0.12) 0 42%, transparent 43%),
+    radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.12) 0 42%, transparent 43%);
+  background-size: 48px 24px;
+}
+
+.paper-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 242, 0.88)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 46%);
+  backdrop-filter: blur(8px);
+}
+
+.brush-ring {
+  box-shadow:
+    0 0 0 1px rgba(179, 58, 47, 0.1),
+    0 16px 34px rgba(71, 38, 18, 0.12);
+}

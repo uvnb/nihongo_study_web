@@ -1,0 +1,15 @@
+node_modules
+.next
+dist
+build
+__pycache__
+.pytest_cache
+.mypy_cache
+.venv
+*.pyc
+.env
+frontend/.env.local
+backend/.env
+.vercel
+deploy-repo-check
+tools/node_modules
