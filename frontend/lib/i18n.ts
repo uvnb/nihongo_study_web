@@ -48,6 +48,7 @@ type Dictionary = {
   labels: {
     unit: string;
     level: string;
+    page: string;
     textbook: string;
     search: string;
     topic: string;
@@ -55,6 +56,7 @@ type Dictionary = {
     radical: string;
     examples: string;
     noData: string;
+    openPdf: string;
   };
 };
 
@@ -62,7 +64,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
   vi: {
     nav: {
       home: "Trang chủ",
-      lessons: "Lý thuyết",
+      lessons: "Ngữ pháp",
       vocabulary: "Từ vựng",
       kanji: "Kanji",
       flashcards: "Flashcard",
@@ -95,7 +97,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       secondaryCta: "Xem Kanji"
     },
     sections: {
-      lessons: "Bài học nổi bật",
+      lessons: "Ngữ pháp nổi bật",
       vocabulary: "Cụm từ đang học",
       kanji: "Kanji cơ bản",
       flashcards: "Ôn tập bằng thẻ",
@@ -106,13 +108,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
     labels: {
       unit: "Bài",
       level: "Cấp độ",
+      page: "Trang",
       textbook: "Giáo trình",
       search: "Tìm kiếm",
       topic: "Chủ đề",
       strokes: "Số nét",
       radical: "Bộ thủ",
       examples: "Ví dụ",
-      noData: "Chưa có dữ liệu"
+      noData: "Chưa có dữ liệu",
+      openPdf: "Mở PDF"
     }
   },
   en: {
@@ -162,13 +166,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
     labels: {
       unit: "Unit",
       level: "Level",
+      page: "Pages",
       textbook: "Textbook",
       search: "Search",
       topic: "Topic",
       strokes: "Strokes",
       radical: "Radical",
       examples: "Examples",
-      noData: "No data yet"
+      noData: "No data yet",
+      openPdf: "Open PDF"
     }
   },
   ja: {
@@ -218,13 +224,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
     labels: {
       unit: "課",
       level: "レベル",
+      page: "ページ",
       textbook: "教科書",
       search: "検索",
       topic: "テーマ",
       strokes: "画数",
       radical: "部首",
       examples: "例",
-      noData: "データがありません"
+      noData: "データがありません",
+      openPdf: "PDFを開く"
     }
   }
 };
