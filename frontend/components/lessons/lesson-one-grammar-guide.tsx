@@ -242,42 +242,70 @@ export function LessonOneGrammarGuide({ locale }: LessonOneGrammarGuideProps) {
             </div>
           </div>
 
-          <div className="hidden gap-4 overflow-x-auto pb-2 pt-1 md:flex md:snap-x md:snap-mandatory">
+          <div className="hidden space-y-4 md:block">
             {grammarPoints.map((point, index) => {
               const tone = toneStyles[index];
 
               return (
                 <article
                   key={point.no}
-                  className={`group flex min-h-[27rem] w-[19rem] flex-none snap-start flex-col overflow-hidden rounded-[1.9rem] border ${tone.ring} ${tone.panel} p-5 shadow-[0_14px_34px_rgba(104,144,98,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(104,144,98,0.12)] lg:w-[20rem]`}
+                  className={`group overflow-hidden rounded-[2rem] border ${tone.ring} ${tone.panel} p-5 shadow-[0_14px_34px_rgba(104,144,98,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(104,144,98,0.12)]`}
                 >
-                  <div className="flex items-start gap-4">
-                    <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-sm font-black ${tone.badge}`}>
-                      {point.no}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full border border-secondary/12 bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-secondary">
-                          {point.callout}
-                        </span>
-                        <span className="text-[10px] uppercase tracking-[0.24em] text-secondary">{point.highlight}</span>
+                  <div className="grid gap-5 lg:grid-cols-[0.9fr_1.35fr_1fr] lg:items-stretch">
+                    <div className="flex flex-col justify-between rounded-[1.55rem] border border-white/80 bg-white/82 p-5">
+                      <div>
+                        <div className="flex items-start gap-4">
+                          <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-sm font-black ${tone.badge}`}>
+                            {point.no}
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="rounded-full border border-secondary/12 bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-secondary">
+                                {point.callout}
+                              </span>
+                              <span className="text-[10px] uppercase tracking-[0.24em] text-secondary">{point.highlight}</span>
+                            </div>
+                            <h3 className="mt-2 font-serif text-2xl text-ink">{point.title}</h3>
+                          </div>
+                        </div>
+
+                        <p className="mt-4 text-sm leading-7 text-ink/72">{point.summary}</p>
                       </div>
-                      <h3 className="mt-2 font-serif text-2xl text-ink">{point.title}</h3>
-                      <p className="mt-2 text-sm leading-7 text-ink/72">{point.summary}</p>
+
+                      <div className="mt-5 rounded-[1.3rem] border border-white/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(248,252,246,0.95))] p-4">
+                        <div className="text-[10px] uppercase tracking-[0.24em] text-secondary">Công thức</div>
+                        <div className="mt-2 font-mono text-sm text-ink md:text-base">{point.pattern}</div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="mt-4 rounded-[1.3rem] border border-white/90 bg-white/82 p-4">
-                    <div className="text-[10px] uppercase tracking-[0.24em] text-secondary">Công thức</div>
-                    <div className="mt-2 font-mono text-sm text-ink md:text-base">{point.pattern}</div>
-                  </div>
+                    <div className="rounded-[1.55rem] border border-white/80 bg-white/82 p-5">
+                      <div className="text-[10px] uppercase tracking-[0.28em] text-torii">Giải thích nhanh</div>
+                      <p className="mt-3 text-sm leading-7 text-ink/72">{point.explain}</p>
 
-                  <p className="mt-4 text-sm leading-7 text-ink/68">{point.explain}</p>
+                      <div className="mt-5 rounded-[1.2rem] border border-dashed border-secondary/18 bg-[linear-gradient(180deg,rgba(255,252,247,0.98),rgba(250,247,241,0.95))] p-4">
+                        <div className="text-[10px] uppercase tracking-[0.24em] text-secondary">Mẹo nhớ</div>
+                        <p className="mt-2 text-sm leading-7 text-ink/78">
+                          {point.no === "1"
+                            ? "Dùng để chốt danh tính. Nghe thấy は trong câu giới thiệu là biết ngay chủ đề."
+                            : point.no === "2"
+                              ? "Chỉ cần thêm ですか ở cuối, cả câu khẳng định sẽ chuyển thành câu hỏi lịch sự."
+                              : point.no === "3"
+                                ? "も thường thay vị trí của は khi muốn thêm một đối tượng khác cùng tính chất."
+                                : point.no === "4"
+                                  ? "じゃありません là cách nói mềm, an toàn hơn khi phủ định trong giao tiếp."
+                                  : "の giúp ghép hai danh từ thành một cụm rất tự nhiên: A của B."
+                        }</p>
+                      </div>
+                    </div>
 
-                  <div className="mt-4 grid gap-3">
-                    {point.examples.map((example) => (
-                      <GrammarExampleCallout key={example.text} example={example} toneClass={tone.ring} />
-                    ))}
+                    <div className="rounded-[1.55rem] border border-white/80 bg-white/82 p-5">
+                      <div className="text-[10px] uppercase tracking-[0.28em] text-torii">Ví dụ</div>
+                      <div className="mt-4 grid gap-3">
+                        {point.examples.map((example) => (
+                          <GrammarExampleCallout key={example.text} example={example} toneClass={tone.ring} />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </article>
               );
