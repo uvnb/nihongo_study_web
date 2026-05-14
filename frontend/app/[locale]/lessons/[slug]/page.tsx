@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { LessonOneGrammarGuide } from "@/components/lessons/lesson-one-grammar-guide";
 import { getLesson } from "@/lib/api";
 import { getLessonDisplayLabels } from "@/lib/grammar-lessons";
 import { dictionaries, isLocale } from "@/lib/i18n";
@@ -38,6 +39,10 @@ export default async function LessonDetailPage({
               {t.labels.openPdf}
             </Link>
           </div>
+
+          {lesson.slug === "n5-greetings-and-self-introduction" ? (
+            <LessonOneGrammarGuide locale={params.locale as "vi" | "en" | "ja"} />
+          ) : null}
         </article>
       </div>
     );
