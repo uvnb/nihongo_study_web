@@ -1,4 +1,5 @@
 import {
+  AudioResponse,
   AuthResponse,
   KanjiInput,
   KanjiItem,
@@ -12,12 +13,17 @@ import {
   ProgressRecord,
   QuizSession,
   QuizStats,
+  WritingGenerateRequest,
+  WritingGenerateResponse,
+  WritingGradeResponse,
+  WritingTrack,
   User,
   VocabularyInput,
   VocabularyItem
 } from "@/types/content";
+import { getLocalLesson, getLocalLessons } from "@/lib/grammar-lessons";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 async function getJson<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -32,19 +38,49 @@ async function getJson<T>(path: string): Promise<T> {
 }
 
 export function getLessons() {
-  return getJson<LessonSummary[]>("/api/lessons");
+  return Promise.resolve(getLocalLessons());
 }
 
 export function getLesson(slug: string) {
-  return getJson<LessonDetail>(`/api/lessons/${slug}`);
+  return Promise.resolve(getLocalLesson(slug));
 }
 
 export function getVocabulary() {
-  return getJson<VocabularyItem[]>("/api/vocabulary");
+  return getJson<VocabularyItem[]>("/api/vocabulary")
+    .then((items) =>
+      items.map((item) => ({
+        ...item,
+        source: item.source ?? "minna"
+      }))
+    )
+    .catch(() => []);
 }
 
-export function getKanji() {
-  return getJson<KanjiItem[]>("/api/kanji");
+export function getKanji(source?: string) {
+  const query = source ? `?source=${encodeURIComponent(source)}` : "";
+  return getJson<KanjiItem[]>(`/api/kanji${query}`).catch(() => []);
+}
+
+export function generateWritingExercise(payload: WritingGenerateRequest) {
+  return postJson<WritingGenerateResponse>(`/api/writing/${payload.track}/generate`, payload);
+}
+
+export function gradeWritingExercise(payload: {
+  level: string;
+  track: WritingTrack;
+  prompt: string;
+  user_answer: string;
+  reference_answer?: string | null;
+}) {
+  return postJson<WritingGradeResponse>(`/api/writing/${payload.track}/grade`, payload);
+}
+
+export function getVocabularyAudio(vocabularyId: number) {
+  return getJson<AudioResponse>(`/api/vocabulary/${vocabularyId}/audio`);
+}
+
+export function getKanjiAudio(kanjiId: number) {
+  return getJson<AudioResponse>(`/api/kanji/${kanjiId}/audio`);
 }
 
 export async function createKanji(payload: KanjiInput, token: string) {
@@ -123,8 +159,9 @@ export async function uncompleteLesson(lessonSlug: string, token: string) {
   }
 }
 
-export async function getProgress(token: string) {
-  return getJsonWithAuth<ProgressRecord[]>("/api/progress?item_type=vocabulary", token);
+export async function getProgress(token: string, itemType?: string) {
+  const query = itemType ? `?item_type=${encodeURIComponent(itemType)}` : "";
+  return getJsonWithAuth<ProgressRecord[]>(`/api/progress${query}`, token);
 }
 
 export async function submitReview(
